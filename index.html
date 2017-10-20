@@ -10,18 +10,22 @@
 
 <body>
 	<div id='main'>
-		<div class="clicks">
-			<p>
+		<fieldset id="money">
+			<legend>
+				<b>Money: </b>
+				<span id="moneyCount">0</span>
+			</legend>
+			<button id="sellClicks">Sell clicks</button>
+		</fieldset>
+		<fieldset class="clicks">
+			<legend>
 				<b>Clicks: </b>
 				<span id="realClickCount">0</span>
-			</p>
+			</legend>
 			<button id="makeClick">Click</button>
-		</div>
+		</fieldset>
 
 	</div>
-
-
-
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="assets/code.js"></script>
 </body>
