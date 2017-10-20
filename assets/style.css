@@ -1,3 +1,10 @@
 * {
   font-family: "Roboto", sans-serif;
 }
+
+#main {
+  transition: display 2s;
+}
+fieldset {
+  width: 150px;
+}

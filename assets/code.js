@@ -2,12 +2,16 @@ clicks = 0;
 autoClickers = 0;
 autoClickerCost = 10;
 autoClickerCostFact = 1.15;
+megaClickers = 0;
+megaClickerCost = 1000;
+megaClickerCostFact = 1.5;
 progress = 0;
 money = 0;
 sellFactor = 0.95;
 
 $(document).ready(function(e) {
   loadGame();
+  $("#main").show();
   let secondInterval = setInterval(everySecondDo, 1000);
 
   $("#makeClick").on("click", function() {
@@ -61,7 +65,7 @@ function updateClicks() {
 
 function updateMoney() {
   $("#moneyCount").text(money);
-  if (money <= autoClickerCost) {
+  if (money < autoClickerCost) {
     $("#makeAutoClicker").prop('disabled', true);
   } else {
     $("#makeAutoClicker").prop('disabled', false);
@@ -73,7 +77,7 @@ function updateAutoClicker() {
 }
 
 function unlockAutoClicker() {
-  $("#main").append($("<fieldset id='autoClickers'><legend><b>Autoclickers: </b><span id='realAutoClickerCount'>0</span></legend><button id='makeAutoClicker'>+1 Autoclicker</button><p><b>Cost: </b><span id='autoClickerCost'>10</span></p></fieldset>"));
+  $("#main").append($("<fieldset id='autoClickers'><legend><b>Autoclickers: </b><span id='realAutoClickerCount'>0</span></legend><button id='makeAutoClicker'>+1 Autoclicker</button><p><b>Cost: </b><span id='autoClickerCost'>"+autoClickerCost+"</span></p></fieldset>"));
 }
 
 function updateAutoClickerCost() {
@@ -93,6 +97,9 @@ function everySecondDo() {
 function updateAll() {
   updateClicks();
   updateMoney();
+  if (progress >= 1) {
+    unlockAutoClicker();
+  }
   updateAutoClicker();
 }
 
@@ -105,28 +112,28 @@ function saveGame() {
 }
 
 function loadGame() {
-  if(document.cookie != "") {
-    clicks = getCookie("clicks");
-    money = getCookie("money");
-    autoClickers = getCookie("autoClickers");
-    autoClickerCost = getCookie("autoClickerCost");
-    progress = getCookie("progress");
+  if (document.cookie != "") {
+    clicks = Number(getCookie("clicks"));
+    money = Number(getCookie("money"));
+    autoClickers = Number(getCookie("autoClickers"));
+    autoClickerCost = Number(getCookie("autoClickerCost"));
+    progress = Number(getCookie("progress"));
     updateAll();
   }
 }
 
 function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
     }
-    return "";
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
