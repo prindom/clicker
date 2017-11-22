@@ -41,7 +41,7 @@ $(document).ready(function(e) {
       money -= megaClickerCost;
       updateMegaClickerCost();
     } else {
-      console.info("Not enough money...");
+      console.info("Not enough money ...");
     }
     updateClicks();
     updateMoney();
